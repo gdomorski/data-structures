@@ -1,8 +1,45 @@
-var Stack = function() {
-  // Hey! Rewrite in the new style. Your code will wind up looking very similar,
-  // but try not not reference your old code in writing the new style.
+var Stack = function(stackSize, storage) {
+
+  var newStack = {};
+  newStack.stackSize = 0;
+
+  newStack.storage = {};
+  
+  _.extend(newStack, Stack.stackMethods)
+
+  return newStack;
 };
 
-var stackMethods = {};
+Stack.stackMethods = {
+  
 
+  Stack.stackMethods.increment = function(){
+    // console.log('this');
+    this.stackSize++;
+  }
 
+  Stack.stackMethods.decrement = function(){
+    return this.stackSize--;
+  }
+
+  Stack.stackMethods.push = function(value){
+    // console.log('push', this.stackSize)
+    this.stackSize++;
+    return this.storage[stackSize] = value;
+  }
+      
+  Stack.stackMethods.pop = function(){
+    //console.log('pop', this.stackSize)
+    var temp = this.storage[stackSize];
+    this.stackSize--;
+    delete this.storage[stackSize];
+    return this.storage[stackSize];
+
+  }
+
+  Stack.stackMethods.size = function(){
+    console.log(this.stackSize)
+    if(this.stackSize < 0) this.stackSize = 0;
+    return this.stackSize;
+  }
+}
