@@ -1,45 +1,31 @@
-var Stack = function(stackSize, storage) {
+var Stack = function() {
 
   var newStack = {};
-  newStack.stackSize = 0;
 
+  newStack.stackSize = 0;
   newStack.storage = {};
   
-  _.extend(newStack, Stack.stackMethods)
+  _.extend(newStack, stackMethods)
 
   return newStack;
 };
 
-Stack.stackMethods = {
+var stackMethods = {};
   
+stackMethods.push = function(value){
+  this.storage[this.stackSize] = value;
+  this.stackSize++;
+}
+    
+stackMethods.pop = function(){
+  this.stackSize--;
+  var temp = this.storage[this.stackSize];
+  delete this.storage[this.stackSize];
+  return temp;
 
-  Stack.stackMethods.increment = function(){
-    // console.log('this');
-    this.stackSize++;
-  }
+}
 
-  Stack.stackMethods.decrement = function(){
-    return this.stackSize--;
-  }
-
-  Stack.stackMethods.push = function(value){
-    // console.log('push', this.stackSize)
-    this.stackSize++;
-    return this.storage[stackSize] = value;
-  }
-      
-  Stack.stackMethods.pop = function(){
-    //console.log('pop', this.stackSize)
-    var temp = this.storage[stackSize];
-    this.stackSize--;
-    delete this.storage[stackSize];
-    return this.storage[stackSize];
-
-  }
-
-  Stack.stackMethods.size = function(){
-    console.log(this.stackSize)
-    if(this.stackSize < 0) this.stackSize = 0;
-    return this.stackSize;
-  }
+stackMethods.size = function(){
+  if(this.stackSize < 0) this.stackSize = 0;
+  return this.stackSize;
 }
