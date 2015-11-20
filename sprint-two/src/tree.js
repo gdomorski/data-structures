@@ -15,7 +15,6 @@ treeMethods.addChild = function(value) {
 treeMethods.contains = function(target) {
   var result = false;
   (function searchFn(obj) {
-    console.log(obj);
     _.each(obj.children, function(item) {item.value === target ? result = true : searchFn(item)});
   })(this);
   return result;
