@@ -1,5 +1,3 @@
-
-
 // ------------------------
 // Instantiate a new graph
 var Graph = function() {
@@ -9,14 +7,12 @@ var Graph = function() {
 // ------------------------
 // Add a node to the graph, passing in the node's value.
 Graph.prototype.addNode = function(node) {
-  console.log('addNode');
   this.graphSet[node] = {};
 };
 
 // ------------------------
 // Return a boolean value indicating if the value passed to contains is represented in the graph.
 Graph.prototype.contains = function(node) {
-  console.log('contains');
   return this.graphSet.hasOwnProperty(node)
 };
 
@@ -29,7 +25,6 @@ Graph.prototype.removeNode = function(node) {
 // ------------------------
 // Remove an edge between any two specified (by value) nodes.
 Graph.prototype.removeEdge = function(fromNode, toNode) {
-  console.log('remove')
   delete this.graphSet[fromNode][toNode];
   delete this.graphSet[toNode][fromNode];
 };
@@ -38,41 +33,23 @@ Graph.prototype.removeEdge = function(fromNode, toNode) {
 // Returns a boolean indicating whether two specified nodes are connected.  Pass in the values contained in each of the two nodes.
 Graph.prototype.hasEdge = function(fromNode, toNode) {
   var result = false;
-  console.log('has edge');
-  console.log(this);
-  if (!!this.graphSet[fromNode][toNode]) {
-    result = true;
-  } else if(!!this.graphSet[toNode][fromNode]) {
-    result = true;
-  }
-  console.log(this.graphSet[toNode][fromNode] === fromNode)
+  !!this.graphSet[fromNode][toNode] || !!this.graphSet[toNode][fromNode] ? result = true : result;
   return result;
 };
 
 // ------------------------
 // Connects two nodes in a graph by adding an edge between them.
 Graph.prototype.addEdge = function(fromNode, toNode) {
-  console.log('add edge');
   this.graphSet[fromNode][toNode] = toNode;
   this.graphSet[toNode][fromNode] = fromNode;
-  console.log(this)
 };
-
 
 // ------------------------
 // Pass in a callback which will be executed on each node of the graph.
 Graph.prototype.forEachNode = function(cb) {
-  console.log('forEachNode');
   for(var key in this.graphSet) {
-    console.log(key, this.graphSet)
     cb(key)
   }
-  // _.each(this.graphSet, function(obj) {
-  //   _.each(obj, function(item) {
-  //     console.log('item: ', item)
-  //     cb(item);
-  //   })
-  // })
 };
 
 /*
