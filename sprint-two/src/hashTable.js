@@ -10,27 +10,15 @@ HashTable.prototype.insert = function(k, v) {
   var index = getIndexBelowMaxForKey(k, this._limit);
 
   if(this._storage[index] === undefined) {
-    var arr = [[k, v]];
-
-    this._storage[index] = arr;
-    console.log('inserting: ', arr, ' into: ', this._storage[index])
+    this._storage[index] = [[k, v]];
   } else {
-    console.log('else', this._storage[index], k)
     for(var i = 0; i < this._storage[index].length; i++) {
-      console.log('each loop: ',this._storage[index][i][0])
       if(this._storage[index][i][0] === k) {
         this._storage[index][i][1] = v;
         return;
       }
     }
     this._storage[index].push([k, v]);
-    
-    // var tempArr = [];
-    // tempArr.push(this._storage[index][0]);
-    // console.log('collided elemented: ', this._storage[index][0])
-    // tempArr.push([k, v]);
-    // this._storage[index] = tempArr;
-    // console.log('collision detected! inserting: ', tempArr, ' into: ', this._storage[index])
   }
 };
 
@@ -39,7 +27,7 @@ HashTable.prototype.retrieve = function(k) {
   var index = getIndexBelowMaxForKey(k, this._limit);
   var result;
 
-  if(this._storage[index].constructor === Array) {
+  if(this._storage[index] !== undefined) {
     _.each(this._storage[index], function(item) {
       if(item[0] === k) {
         result = item[1];
