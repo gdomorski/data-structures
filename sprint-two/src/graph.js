@@ -13,7 +13,7 @@ Graph.prototype.addNode = function(node) {
 // ------------------------
 // Return a boolean value indicating if the value passed to contains is represented in the graph.
 Graph.prototype.contains = function(node) {
-  return this.graphSet.hasOwnProperty(node)
+  return this.graphSet.hasOwnProperty(node);
 };
 
 // ------------------------
@@ -33,7 +33,7 @@ Graph.prototype.removeEdge = function(fromNode, toNode) {
 // Returns a boolean indicating whether two specified nodes are connected.  Pass in the values contained in each of the two nodes.
 Graph.prototype.hasEdge = function(fromNode, toNode) {
   var result = false;
-  !!this.graphSet[fromNode][toNode] || !!this.graphSet[toNode][fromNode] ? result = true : result;
+  (!!this.graphSet[fromNode][toNode] || !!this.graphSet[toNode][fromNode]) ? result = true : result;
   return result;
 };
 
@@ -48,12 +48,10 @@ Graph.prototype.addEdge = function(fromNode, toNode) {
 // Pass in a callback which will be executed on each node of the graph.
 Graph.prototype.forEachNode = function(cb) {
   for(var key in this.graphSet) {
-    cb(key)
-  }
+    cb(key);
+  }  
 };
 
 /*
  * Complexity: What is the time complexity of the above functions?
  */
-
-
