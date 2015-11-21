@@ -4,39 +4,90 @@
 
 var BinarySearchTree = function(value) {
   var newTree = Object.create(BinarySearchTreeMethods);
-  newTree.nodeValue = value;
-  newTree.binaryTree = {};
+
+  newTree.value = value;
   newTree.left = undefined;
   newTree.right = undefined;
+
   return newTree;
 };
 
 var BinarySearchTreeMethods = {};
 
 BinarySearchTreeMethods.insert = function(val) {
-  var newValue = BinarySearchTree(val);
-  console.log(this);
-  if(newValue === this.treeNode) {
-    return;
-  }else if (newValue > this.treeNode) {
-    if(this.treeNode.left === undefined){
-      this.treeNode.left = newValue;
-    }else{
-      this.insert(this.treeNode.left)
+
+  // create's a new binary search tree
+  var newNode = BinarySearchTree(val); 
+  // console.log(this);
+
+  var innerInsert = function(node) {
+  // if newNode is less than head node
+
+    if(newNode.value < node.value) {
+  // if head node's left value is undefined
+      if(node.left === undefined){
+  // set head node's left value to newNode
+        return node.left = newNode;
+  // else
+      } else {
+  // recurse inner function with head node's left value
+        innerInsert(node.left);
+      }
+  // else
+    } else {
+  // if head node's right value is undefined
+      if(node.right === undefined){
+  // set head node's right value to newNode
+        return node.right = newNode;
+  // else
+      } else {
+  // recurse inner function with head node's right value
+        innerInsert(node.right);        
+      }
     }
-  }else if(this.treeNode.right === undefined){
-    this.treeNode.right = newValue;
+    return node;
   }
-  //console.log(this.treeNode.left, this.treeNode.right);
+  return innerInsert(this);
 }
 
 BinarySearchTreeMethods.contains = function(val) {
-  if(val === this.treeNode) return true;
+  var result = false;
+
+  var innerContains = function(node) {
+    console.log(val, node.value);
+    if(val === node.value) {
+      result = true;
+    } else if (node.value < val) {
+      if(node.right === undefined) return;
+      innerContains(node.right);
+    } else if(node.value > val) {
+      if(node.left === undefined) return;
+      innerContains(node.left);
+    } 
+  }
+  innerContains(this);
+  return result;
 }
 
-BinarySearchTreeMethods.depthFirstLog = function() {
-  
+BinarySearchTreeMethods.depthFirstLog = function(cb) {
+  var arr = [];
+
+  var innerDepth = function(node) {
+    arr.push(node.value);
+    if(node.left !== undefined) {
+      innerDepth(node.left);
+    }
+    if(node.right !== undefined) {
+      innerDepth(node.right);
+    }
+  }
+  innerDepth(this);
+
+  _.each(arr, function(item){
+    cb(item);
+  });
 }
+
 
 
 /*
